@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Mail } from 'lucide-react'
 import { Charity } from '@/types/database'
 
 export default function SignupPage() {
@@ -20,6 +20,7 @@ export default function SignupPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [fetchingCharities, setFetchingCharities] = useState(true)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   
   const supabase = createClient()
 
@@ -65,6 +66,7 @@ export default function SignupPage() {
         password: formData.password,
         options: {
           data: { full_name: formData.full_name },
+          emailRedirectTo: `${window.location.origin}/dashboard`
         },
       })
 
@@ -75,25 +77,66 @@ export default function SignupPage() {
       }
 
       // 2. Profile is auto-created via DB trigger, but we need to update charity settings
+      // We do this despite the user might not be confirmed yet, the trigger handles the base profile
       const { error: profileError } = await supabase
         .from('profiles')
         .update({
           charity_id: formData.charity_id || null,
           charity_percentage: formData.charity_percentage,
+          subscription_plan: formData.plan
         })
         .eq('id', authData.user.id)
 
       if (profileError) {
-         // Profile might not be created immediately due to trigger async lag
          console.warn('Could not update profile immediately:', profileError)
       }
 
-      // 3. Redirect to Stripe checkout
-      window.location.href = `/api/stripe/checkout?plan=${formData.plan}`
+      // 3. Show verification message instead of redirecting
+      setIsSubmitted(true)
+      setLoading(false)
     } catch (err: any) {
       setError(err.message || 'Failed to create account')
       setLoading(false)
     }
+  }
+
+  if (isSubmitted) {
+    return (
+      <div className="glass p-10 rounded-3xl relative overflow-hidden group border border-glass shadow-2xl text-center animate-scale-in">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -z-10"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl -z-10"></div>
+        
+        <div className="w-20 h-20 bg-emerald-500/10 rounded-2xl flex items-center justify-center mx-auto mb-8 border border-emerald-500/20 shadow-xl shadow-emerald-500/5 rotate-3 group-hover:rotate-6 transition-transform">
+          <Mail className="w-10 h-10 text-emerald-400 animate-bounce-slow" />
+        </div>
+        
+        <h2 className="text-3xl font-black text-foreground mb-4 tracking-tight">Check your inbox</h2>
+        <p className="text-slate-400 mb-8 font-medium leading-relaxed">
+          We've sent a verification link to <span className="text-foreground font-bold">{formData.email}</span>. 
+          Please click the link to verify your account and complete your setup.
+        </p>
+
+        <div className="space-y-4">
+          <div className="p-4 bg-muted/30 rounded-2xl border border-glass text-xs text-slate-500 font-medium">
+            Didn't receive an email? Check your spam folder or try resending.
+          </div>
+          
+          <button 
+            onClick={() => window.location.reload()}
+            className="btn-secondary w-full py-3 font-bold border-glass hover:border-emerald-500/50 transition-all"
+          >
+            Resend Verification Email
+          </button>
+          
+          <Link 
+            href="/login"
+            className="block py-2 text-sm text-emerald-400 hover:text-emerald-300 font-bold transition-colors"
+          >
+            Back to Sign In
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (
