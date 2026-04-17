@@ -97,9 +97,10 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="glass p-8 rounded-2xl relative gradient-border">
-      <h2 className="text-2xl font-semibold text-white mb-2">Create Account</h2>
-      <p className="text-sm text-slate-400 mb-6">Join the club. Win prizes. Support charities.</p>
+    <div className="glass p-8 rounded-3xl relative overflow-hidden group border border-glass shadow-2xl">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl -z-10 group-hover:bg-emerald-500/10 transition-colors transition-all duration-500"></div>
+      <h2 className="text-2xl font-bold text-foreground mb-2 tracking-tight">Create Account</h2>
+      <p className="text-sm text-slate-500 mb-6 font-medium">Join the club. Win prizes. Support charities.</p>
       
       {error && (
         <div className="bg-rose-500/10 border border-rose-500/50 text-rose-400 p-3 rounded-lg mb-6 text-sm">
@@ -109,7 +110,7 @@ export default function SignupPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="full_name">
+          <label className="block text-sm font-semibold text-slate-500 mb-1.5" htmlFor="full_name">
             Full Name
           </label>
           <input
@@ -126,8 +127,8 @@ export default function SignupPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="email">
-            Email
+          <label className="block text-sm font-semibold text-slate-500 mb-1.5" htmlFor="email">
+            Email Address
           </label>
           <input
             id="email"
@@ -143,8 +144,8 @@ export default function SignupPage() {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="password">
-            Password (Min 8 characters)
+          <label className="block text-sm font-semibold text-slate-500 mb-1.5" htmlFor="password">
+            Secure Password (Min 8 chars)
           </label>
           <input
             id="password"
@@ -160,12 +161,12 @@ export default function SignupPage() {
           />
         </div>
 
-        <div className="pt-4 border-t border-slate-700/50">
-          <h3 className="text-sm font-semibold text-emerald-400 mb-3">Charity Support</h3>
+        <div className="pt-6 border-t border-glass">
+          <h3 className="text-sm font-bold text-emerald-500 uppercase tracking-wider mb-4">Charity Support</h3>
           
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="charity_id">
-              Select a Charity
+          <div className="mb-5">
+            <label className="block text-sm font-semibold text-slate-500 mb-1.5" htmlFor="charity_id">
+              Choose Your Cause
             </label>
             <div className="relative">
               {fetchingCharities ? (
@@ -200,10 +201,10 @@ export default function SignupPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="charity_percentage">
-              Contribution Percentage (Min 10%)
+            <label className="block text-sm font-semibold text-slate-500 mb-1.5" htmlFor="charity_percentage">
+              Contribution Level (Min 10%)
             </label>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-4">
               <input
                 id="charity_percentage"
                 name="charity_percentage"
@@ -213,23 +214,23 @@ export default function SignupPage() {
                 step="5"
                 value={formData.charity_percentage}
                 onChange={handleChange}
-                className="w-full accent-emerald-500"
+                className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400 transition-all"
               />
-              <span className="text-white font-medium min-w-[3ch]">{formData.charity_percentage}%</span>
+              <span className="text-foreground font-bold text-lg min-w-[3ch]">{formData.charity_percentage}%</span>
             </div>
           </div>
         </div>
 
-        <div className="pt-4 border-t border-slate-700/50">
-          <h3 className="text-sm font-semibold text-emerald-400 mb-3">Subscription Plan</h3>
+        <div className="pt-6 border-t border-glass">
+          <h3 className="text-sm font-bold text-emerald-500 uppercase tracking-wider mb-4">Subscription Plan</h3>
           
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <label className={`
-              relative flex flex-col cursor-pointer rounded-lg p-3 border ${
+              relative flex flex-col cursor-pointer rounded-2xl p-4 border transition-all duration-300 ${
                 formData.plan === 'monthly' 
-                  ? 'border-emerald-500 bg-emerald-500/10' 
-                  : 'border-slate-700 bg-slate-800/50 hover:bg-slate-700/50'
-              } transition-all
+                  ? 'border-emerald-500 bg-emerald-500/10 shadow-[0_0_15px_rgba(16,185,129,0.1)]' 
+                  : 'border-glass bg-background/50 hover:bg-emerald-500/5 hover:border-emerald-500/30'
+              }
             `}>
               <input 
                 type="radio" 
@@ -239,16 +240,16 @@ export default function SignupPage() {
                 onChange={handleChange} 
                 className="sr-only" 
               />
-              <span className="text-sm font-medium text-white">Monthly</span>
-              <span className="text-xs text-slate-400">₹999 / month</span>
+              <span className={`text-sm font-bold ${formData.plan === 'monthly' ? 'text-emerald-400' : 'text-foreground'}`}>Monthly</span>
+              <span className="text-xs text-slate-500 mt-1 font-medium">₹999 / mo</span>
             </label>
             
             <label className={`
-              relative flex flex-col cursor-pointer rounded-lg p-3 border ${
+              relative flex flex-col cursor-pointer rounded-2xl p-4 border transition-all duration-300 ${
                 formData.plan === 'yearly' 
-                  ? 'border-emerald-500 bg-emerald-500/10' 
-                  : 'border-slate-700 bg-slate-800/50 hover:bg-slate-700/50'
-              } transition-all
+                  ? 'border-emerald-500 bg-emerald-500/10 shadow-[0_0_15px_rgba(16,185,129,0.1)]' 
+                  : 'border-glass bg-background/50 hover:bg-emerald-500/5 hover:border-emerald-500/30'
+              }
             `}>
               <input 
                 type="radio" 
@@ -258,11 +259,11 @@ export default function SignupPage() {
                 onChange={handleChange} 
                 className="sr-only" 
               />
-              <span className="absolute -top-2.5 -right-2 text-[10px] font-bold bg-amber-500 text-white px-2 py-0.5 rounded-full shadow-lg">
+              <span className="absolute -top-3 -right-2 text-[10px] font-black bg-amber-500 text-white px-2.5 py-1 rounded-full shadow-[0_4px_10px_rgba(245,158,11,0.3)] border border-amber-400/20">
                 SAVE 16%
               </span>
-              <span className="text-sm font-medium text-white">Yearly</span>
-              <span className="text-xs text-slate-400">₹9,999 / year</span>
+              <span className={`text-sm font-bold ${formData.plan === 'yearly' ? 'text-emerald-400' : 'text-foreground'}`}>Yearly</span>
+              <span className="text-xs text-slate-500 mt-1 font-medium">₹9,999 / yr</span>
             </label>
           </div>
         </div>

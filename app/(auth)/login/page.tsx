@@ -39,8 +39,9 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="glass p-8 rounded-2xl relative gradient-border">
-      <h2 className="text-2xl font-semibold text-white mb-6">Welcome Back</h2>
+    <div className="glass p-8 rounded-3xl relative overflow-hidden group border border-glass shadow-2xl">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
+      <h2 className="text-2xl font-bold text-foreground mb-6 tracking-tight">Welcome Back</h2>
       
       {error && (
         <div className="bg-rose-500/10 border border-rose-500/50 text-rose-400 p-3 rounded-lg mb-6 text-sm">
@@ -50,8 +51,8 @@ export default function LoginPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="email">
-            Email
+          <label className="block text-sm font-semibold text-slate-500 mb-1.5" htmlFor="email">
+            Email Address
           </label>
           <input
             id="email"
@@ -66,8 +67,8 @@ export default function LoginPage() {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="password">
-            Password
+          <label className="block text-sm font-semibold text-slate-500 mb-1.5" htmlFor="password">
+            Secure Password
           </label>
           <input
             id="password"

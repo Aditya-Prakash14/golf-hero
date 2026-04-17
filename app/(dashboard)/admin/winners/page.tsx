@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import AdminTable from '@/components/admin/AdminTable'
-import { formatCurrency } from '@/lib/utils'
+import { formatCurrency, formatDate } from '@/lib/utils'
 import { Loader2, ExternalLink, Check, X } from 'lucide-react'
 
 export default function AdminWinnersPage() {
@@ -44,10 +44,10 @@ export default function AdminWinnersPage() {
   }
 
   const columns = [
-    { header: 'User', accessor: (v: any) => <div><p className="font-semibold text-white">{v.profiles?.full_name}</p><p className="text-xs text-slate-500">{v.profiles?.email}</p></div> },
-    { header: 'Draw', accessor: (v: any) => v.draw_entries?.draws?.draw_month || '-' },
-    { header: 'Match', accessor: (v: any) => `${v.draw_entries?.match_count} (${v.draw_entries?.prize_tier})` },
-    { header: 'Prize', accessor: (v: any) => <span className="font-bold text-amber-400">{formatCurrency(v.draw_entries?.prize_amount || 0)}</span> },
+    { header: 'User Info', accessor: (v: any) => <div><p className="font-bold text-foreground">{v.profiles?.full_name}</p><p className="text-xs text-slate-500">{v.profiles?.email}</p></div> },
+    { header: 'Draw Month', accessor: (v: any) => <span className="font-medium">{v.draw_entries?.draws?.draw_month ? formatDate(v.draw_entries.draws.draw_month) : '-'}</span> },
+    { header: 'Match Count', accessor: (v: any) => <span className="bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-xs font-bold">{v.draw_entries?.match_count} Matches</span> },
+    { header: 'Prize Amount', accessor: (v: any) => <span className="font-bold text-amber-500 text-base">{formatCurrency(v.draw_entries?.prize_amount || 0)}</span> },
     { header: 'Proof', accessor: (v: any) => v.proof_url ? <a href={supabase.storage.from('winner-proofs').getPublicUrl(v.proof_url).data.publicUrl} target="_blank" rel="noreferrer" className="flex items-center text-emerald-400 hover:underline">View <ExternalLink className="w-3 h-3 ml-1" /></a> : <span className="text-slate-500">Not uploaded</span> },
     { header: 'Status', accessor: (v: any) => {
         if (v.status === 'approved') return <span className="text-emerald-400">Approved</span>
@@ -57,24 +57,32 @@ export default function AdminWinnersPage() {
     { 
       header: 'Actions', 
       accessor: (v: any) => (v.status === 'pending' && v.proof_url) ? (
-        <div className="flex space-x-2 border border-slate-700 bg-slate-800 rounded p-1">
-          <button onClick={() => handleAction(v.id, 'approve')} className="text-emerald-400 hover:bg-slate-700 p-1 rounded" title="Approve"><Check className="w-4 h-4" /></button>
-          <button onClick={() => handleAction(v.id, 'reject')} className="text-rose-400 hover:bg-slate-700 p-1 rounded" title="Reject"><X className="w-4 h-4" /></button>
+        <div className="flex items-center space-x-2">
+          <button onClick={() => handleAction(v.id, 'approve')} className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white transition-all shadow-sm" title="Approve"><Check className="w-4 h-4" /></button>
+          <button onClick={() => handleAction(v.id, 'reject')} className="flex items-center justify-center w-8 h-8 rounded-lg bg-rose-500/10 text-rose-500 hover:bg-rose-500 hover:text-white transition-all shadow-sm" title="Reject"><X className="w-4 h-4" /></button>
         </div>
-      ) : <span className="text-slate-500">-</span>
+      ) : <span className="text-slate-400 font-medium">-</span>
     },
   ]
 
   return (
     <div className="space-y-6 animate-fade-in pb-12">
-      <div>
-         <h1 className="text-3xl font-bold text-white tracking-tight">Winner Verification</h1>
-         <p className="text-slate-400 mt-1">Review proofs and manage payouts.</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+         <div>
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">Winner Verification</h1>
+            <p className="text-slate-500 mt-1">Review validation proofs and authorize prize payouts.</p>
+         </div>
       </div>
 
-      <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+      <div className="glass p-8 rounded-3xl border border-glass shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl -z-10"></div>
+        <h2 className="text-xl font-bold text-foreground mb-8">Verification Pipeline</h2>
+        
         {loading ? (
-          <div className="flex justify-center p-8"><Loader2 className="w-6 h-6 animate-spin text-slate-500" /></div>
+          <div className="flex flex-col items-center justify-center py-20">
+            <Loader2 className="w-10 h-10 animate-spin text-amber-500 mb-4" />
+            <p className="text-slate-500 font-medium">Syncing verification records...</p>
+          </div>
         ) : (
           <AdminTable data={verifications} columns={columns} emptyMessage="No winner records found" />
         )}

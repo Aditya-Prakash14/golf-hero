@@ -123,15 +123,15 @@ export default function ScoresPage() {
         </div>
       )}
 
-      {/* Form Modal / Area */}
+      {/* Form Area */}
       {(showForm || editingScore) && (
-        <div className="glass-light p-6 rounded-2xl border border-slate-700 animate-slide-down relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
-          <h2 className="text-xl font-semibold text-foreground mb-6 flex items-center">
+        <div className="glass p-8 rounded-3xl border border-glass animate-slide-down relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+          <h2 className="text-2xl font-bold text-foreground mb-8 flex items-center tracking-tight">
             {editingScore ? (
-              <>Edit Score Entry</>
+              <><RefreshCw className="w-6 h-6 mr-3 text-amber-500" /> Edit Score Entry</>
             ) : (
-              <>Log New Score</>
+              <><Target className="w-6 h-6 mr-3 text-emerald-500" /> Log New Score</>
             )}
           </h2>
           <ScoreForm
@@ -148,20 +148,20 @@ export default function ScoresPage() {
       )}
 
       {/* Info Banner */}
-      <div className="glass p-5 rounded-2xl flex items-start sm:items-center border border-emerald-500/20 bg-emerald-500/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 animate-shimmer" />
-        <RefreshCw className="w-6 h-6 text-emerald-400 mr-4 flex-shrink-0 sm:mt-0 mt-1 animate-pulse-soft" />
-        <p className="text-sm text-foreground/70 leading-relaxed">
-          We maintain your <strong className="text-emerald-500 font-semibold">latest {MAX_SCORES} scores</strong> for the monthly draw. 
-          When you enter a 6th score, your oldest score will be automatically replaced. Fill all slots to maximize your chances!
+      <div className="glass p-6 rounded-3xl flex items-start sm:items-center border border-emerald-500/20 bg-emerald-500/5 relative overflow-hidden shadow-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 animate-shimmer pointer-events-none" />
+        <Info className="w-6 h-6 text-emerald-500 mr-5 flex-shrink-0 sm:mt-0 mt-1" />
+        <p className="text-sm text-foreground/80 leading-relaxed font-medium">
+          We maintain your <span className="text-emerald-500 font-bold underline decoration-emerald-500/30 underline-offset-4">latest {MAX_SCORES} scores</span> for the monthly draw. 
+          When you enter a 6th score, your oldest score will be automatically replaced.
         </p>
       </div>
 
       {/* Scores Grid */}
       {loading && !submitting ? (
-        <div className="py-20 flex flex-col items-center justify-center text-slate-500">
-          <Loader2 className="w-8 h-8 animate-spin mb-4" />
-          <p>Loading your score history...</p>
+        <div className="py-24 flex flex-col items-center justify-center text-slate-500">
+          <Loader2 className="w-12 h-12 animate-spin mb-4 text-emerald-500" />
+          <p className="font-bold tracking-tight">Syncing score history...</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in relative">
@@ -181,15 +181,15 @@ export default function ScoresPage() {
               return (
                 <div 
                   key={`empty-${index}`} 
-                  className={`glass rounded-2xl p-6 relative overflow-hidden flex flex-col items-center justify-center text-center border-dashed border-2 border-slate-700/50 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all duration-300 cursor-pointer group`}
+                  className={`glass rounded-3xl p-8 relative overflow-hidden flex flex-col items-center justify-center text-center border-dashed border-2 border-glass hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all duration-500 cursor-pointer group shadow-sm hover:shadow-emerald-500/5 min-h-[220px]`}
                   style={{ animationDelay: `${index * 100}ms` }}
                   onClick={() => setShowForm(true)}
                 >
-                  <div className="w-12 h-12 rounded-full glass-light flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 group-hover:scale-110 transition-all shadow-sm">
-                    <PlusCircle className="w-6 h-6 text-slate-400 group-hover:text-emerald-500 transition-colors" />
+                  <div className="w-14 h-14 rounded-2xl bg-muted/20 flex items-center justify-center mb-5 group-hover:bg-emerald-500/20 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 border border-glass">
+                    <PlusCircle className="w-7 h-7 text-slate-400 group-hover:text-emerald-500 transition-colors" />
                   </div>
-                  <h3 className="text-sm font-semibold text-foreground/60 group-hover:text-emerald-500 transition-colors">Empty Slot {index + 1}</h3>
-                  <p className="text-xs text-slate-400 mt-2">Click to log score</p>
+                  <h3 className="text-sm font-bold text-foreground/60 group-hover:text-emerald-500 transition-colors uppercase tracking-widest">Slot {index + 1}</h3>
+                  <p className="text-xs text-slate-500 mt-3 font-medium">Ready for your score</p>
                 </div>
               )
             }

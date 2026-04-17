@@ -9,18 +9,15 @@ import { ArrowRight, Trophy, Target, AlertCircle, Heart, Info } from 'lucide-rea
 
 export const dynamic = 'force-dynamic'
 
-export default async function DashboardPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
+export default async function DashboardPage(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
+  const searchParams = await props.searchParams
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) return null
 
-  // Await the searchParams mapping before destructuring if necessary in Next.js 15,
-  // but in Next.js 14 searchParams is a sync prop during server rendering.
   const errorParam = searchParams?.error
   const subscribedParam = searchParams?.subscribed
 

@@ -12,11 +12,11 @@ export default function AuthLayout({
       <div className="w-full max-w-md p-6 z-10 animate-fade-in relative">
         <div className="text-center mb-8">
           <a href="/" className="inline-block">
-            <h1 className="text-3xl font-bold tracking-tight text-white mb-2">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">
                Golf <span className="gradient-text">Heroes</span>
             </h1>
           </a>
-          <p className="text-slate-400">Play. Win. Give.</p>
+          <p className="text-slate-500 font-medium">Play. Win. Give.</p>
         </div>
         
         {children}

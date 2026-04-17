@@ -99,33 +99,35 @@ export default function CharityPage() {
       </div>
 
       {message && (
-        <div className={`p-4 rounded-xl flex items-start border ${
+        <div className={`p-4 rounded-2xl flex items-start border animate-slide-down shadow-lg ${
           message.type === 'success' 
-            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
-            : 'bg-rose-500/10 border-rose-500/30 text-rose-400'
+            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-emerald-500/10' 
+            : 'bg-rose-500/10 border-rose-500/30 text-rose-400 shadow-rose-500/10'
         }`}>
           <Info className="w-5 h-5 mr-3 flex-shrink-0" />
-          <p>{message.text}</p>
+          <p className="text-sm font-medium">{message.text}</p>
         </div>
       )}
 
-      <div className="glass p-6 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden gradient-border border-emerald-500/30">
-         <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
-         <div className="flex-1">
-            <h2 className="text-lg font-semibold text-foreground mb-2">Your Contribution</h2>
-            <p className="text-sm text-foreground/70">
+      <div className="glass p-8 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-8 relative overflow-hidden shadow-xl border border-glass">
+         <div className="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl -z-10"></div>
+         
+         <div className="flex-1 space-y-2">
+            <h2 className="text-xl font-bold text-foreground tracking-tight">Your Contribution Level</h2>
+            <p className="text-sm text-slate-500 font-medium leading-relaxed max-w-md">
                A portion of your monthly subscription goes directly to your selected charity. 
-               The minimum is 10%, but you can give more if you wish.
+               The minimum is 10%, but your impact grows with every percent you choose to share.
             </p>
          </div>
          
-         <div className="flex-1 max-w-sm w-full space-y-4">
+         <div className="flex-1 max-w-sm w-full space-y-6">
             <div>
-               <div className="flex justify-between items-end mb-2">
-                 <label className="text-sm font-medium text-slate-500" htmlFor="charity_percentage">
-                    Contribution Percentage
+               <div className="flex justify-between items-end mb-3">
+                 <label className="text-sm font-bold text-slate-500 uppercase tracking-wider" htmlFor="charity_percentage">
+                    Impact Percentage
                  </label>
-                 <span className="text-xl font-bold text-emerald-400">{percentage}%</span>
+                 <span className="text-3xl font-black text-emerald-400 tracking-tighter">{percentage}%</span>
                </div>
                <input
                  id="charity_percentage"
@@ -135,17 +137,17 @@ export default function CharityPage() {
                  step="5"
                  value={percentage}
                  onChange={(e) => setPercentage(Number(e.target.value))}
-                 className="w-full accent-emerald-500"
+                 className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-emerald-500 hover:accent-emerald-400 transition-all"
                />
             </div>
             
             <button
                onClick={handleSave}
                disabled={saving || !selectedCharityId}
-               className="btn-primary w-full flex items-center justify-center"
+               className="btn-primary w-full py-3.5 flex items-center justify-center shadow-lg shadow-emerald-500/20"
             >
-               {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
-               Save Preferences
+               {saving ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : <Save className="w-5 h-5 mr-2" />}
+               Save Configuration
             </button>
          </div>
       </div>

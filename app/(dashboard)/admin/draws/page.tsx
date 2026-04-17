@@ -122,46 +122,52 @@ export default function AdminDrawsPage() {
 
   return (
     <div className="space-y-6 animate-fade-in pb-12">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
          <div>
-           <h1 className="text-3xl font-bold text-white tracking-tight">Draw Management</h1>
-           <p className="text-slate-400 mt-1">Configure, simulate, and publish monthly draws.</p>
+           <h1 className="text-3xl font-bold text-foreground tracking-tight">Draw Management</h1>
+           <p className="text-slate-500 mt-1">Configure, simulate, and publish monthly draws.</p>
          </div>
          <button 
            onClick={() => setShowNewDraw(!showNewDraw)}
-           className="btn-secondary"
+           className="btn-primary py-3 px-6 shadow-emerald-500/20 shadow-lg flex items-center"
          >
-           <Plus className="w-4 h-4 mr-2 inline-block" /> New Draw
+           <Plus className="w-4 h-4 mr-2" /> New Draw Configuration
          </button>
       </div>
 
       {showNewDraw && (
-        <div className="glass p-6 rounded-2xl animate-slide-down border border-slate-700">
-          <h2 className="text-lg font-semibold text-white mb-4">Configure New Draw</h2>
-          <form onSubmit={handleCreateDraw} className="space-y-4 max-w-sm">
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="month">Draw Month</label>
-              <input type="date" id="month" value={newDrawDate} onChange={e => setNewDrawDate(e.target.value)} required className="input-field" />
-              <p className="text-xs text-slate-500 mt-1">Select the 1st of the month</p>
+        <div className="glass p-8 rounded-3xl animate-slide-up border border-emerald-500/20 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl -z-10"></div>
+          <h2 className="text-xl font-bold text-foreground mb-6 flex items-center">
+            <Plus className="w-5 h-5 mr-3 text-emerald-500" />
+            Configure New Monthly Draw
+          </h2>
+          <form onSubmit={handleCreateDraw} className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end max-w-4xl">
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-slate-500 flex items-center" htmlFor="month">Draw Month Target</label>
+              <input type="date" id="month" value={newDrawDate} onChange={e => setNewDrawDate(e.target.value)} required className="input-field py-2.5" />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1.5" htmlFor="type">Algorithm Type</label>
-              <select id="type" value={newDrawType} onChange={e => setNewDrawType(e.target.value as any)} className="input-field">
-                <option value="random">Random Generation</option>
-                <option value="algorithmic">Algorithmic (User Frequency Weighted)</option>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-slate-500 flex items-center" htmlFor="type">Algorithm Logic</label>
+              <select id="type" value={newDrawType} onChange={e => setNewDrawType(e.target.value as any)} className="input-field py-2.5">
+                <option value="random">Pure Random Generation</option>
+                <option value="algorithmic">Algorithmic (Frequency Weighted)</option>
               </select>
             </div>
-            <button type="submit" disabled={runningAction === 'create'} className="btn-primary w-full">
-               {runningAction === 'create' ? 'Creating...' : 'Create Draw Configuration'}
+            <button type="submit" disabled={runningAction === 'create'} className="btn-primary py-3 shadow-lg shadow-emerald-500/10">
+               {runningAction === 'create' ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Create Draw Configuration'}
             </button>
           </form>
         </div>
       )}
 
-      <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
-        <h2 className="text-lg font-semibold text-white mb-4">Draw History</h2>
+      <div className="glass p-8 rounded-3xl border border-glass shadow-xl">
+        <h2 className="text-xl font-bold text-foreground mb-8">Draw History & Status</h2>
         {loading ? (
-          <div className="flex justify-center p-8"><Loader2 className="w-6 h-6 animate-spin text-slate-500" /></div>
+          <div className="flex flex-col items-center justify-center py-20">
+            <Loader2 className="w-10 h-10 animate-spin text-emerald-500 mb-4" />
+            <p className="text-slate-500 font-medium">Loading draw data...</p>
+          </div>
         ) : (
           <AdminTable data={draws} columns={columns as any} />
         )}

@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { formatCurrency } from '@/lib/utils'
-import { Users, Trophy, Heart, Gift } from 'lucide-react'
+import { Users, Trophy, Heart, Gift, Play } from 'lucide-react'
 
 export default async function AdminOverviewPage() {
   const supabase = await createClient()
@@ -38,35 +38,39 @@ export default async function AdminOverviewPage() {
   return (
     <div className="space-y-6 animate-fade-in pb-12">
       <div>
-         <h1 className="text-3xl font-bold text-white tracking-tight">Admin Overview</h1>
-         <p className="text-slate-400 mt-1">Platform performance and statistics.</p>
+         <h1 className="text-3xl font-bold text-foreground tracking-tight">Admin Overview</h1>
+         <p className="text-slate-500 mt-1">Platform performance and statistics.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, i) => {
           const Icon = stat.icon
           return (
-            <div key={i} className="glass p-5 rounded-2xl relative overflow-hidden">
+            <div key={i} className="glass p-5 rounded-2xl relative overflow-hidden group hover:border-glass-hover transition-all">
                <div className="flex justify-between items-start mb-4">
-                 <p className="text-sm font-medium text-slate-400">{stat.title}</p>
-                 <Icon className={`w-5 h-5 ${stat.color}`} />
+                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{stat.title}</p>
+                 <Icon className={`w-6 h-6 ${stat.color} group-hover:scale-110 transition-transform`} />
                </div>
-               <p className="text-3xl font-bold text-white mb-1">{stat.value}</p>
-               <p className="text-xs text-slate-500">{stat.sub}</p>
+               <p className="text-3xl font-bold text-foreground mb-1 tracking-tight">{stat.value}</p>
+               <p className="text-xs text-slate-500 font-medium">{stat.sub}</p>
             </div>
           )
         })}
       </div>
 
-      <div className="glass p-6 rounded-2xl mt-8 flex flex-col md:flex-row gap-6 items-center border border-amber-500/20 bg-amber-500/5">
+      <div className="glass p-8 rounded-3xl mt-8 flex flex-col md:flex-row gap-8 items-center border border-amber-500/20 bg-amber-500/5 relative overflow-hidden group">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl -z-10 group-hover:bg-amber-500/20 transition-colors"></div>
         <div className="flex-1">
-          <h2 className="text-xl font-bold text-white mb-2">Simulate Next Draw</h2>
-          <p className="text-sm text-slate-300">
-            Preview the results of the next draw before publishing. Check the prize pool distribution and winner count.
+          <h2 className="text-2xl font-bold text-foreground mb-3 flex items-center">
+            <Play className="w-5 h-5 mr-3 text-amber-500" />
+            Simulate Next Draw
+          </h2>
+          <p className="text-base text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+            Preview the results of the next draw before publishing. Check the prize pool distribution and winner count to ensure everything is correct.
           </p>
         </div>
-        <div>
-          <a href="/admin/draws" className="btn-primary inline-block">
+        <div className="flex-shrink-0">
+          <a href="/admin/draws" className="btn-primary py-4 px-8 shadow-xl shadow-emerald-500/20 hover:scale-105 transition-transform inline-block">
              Manage Draws
           </a>
         </div>
