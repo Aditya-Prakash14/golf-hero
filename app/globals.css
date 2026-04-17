@@ -77,8 +77,25 @@
 }
 
 :root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(203, 213, 225, 0.5);
+  --glass-light-bg: rgba(241, 245, 249, 0.4);
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --input-border: rgba(203, 213, 225, 0.8);
+  --input-text: #0f172a;
+}
+
+.dark {
   --background: #020617;
   --foreground: #e2e8f0;
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(51, 65, 85, 0.5);
+  --glass-light-bg: rgba(30, 41, 59, 0.4);
+  --input-bg: rgba(15, 23, 42, 0.8);
+  --input-border: rgba(51, 65, 85, 0.6);
+  --input-text: #e2e8f0;
 }
 
 /* Scrollbar */
@@ -86,7 +103,7 @@
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
   background: #334155;
@@ -100,21 +117,22 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Inter', system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Glassmorphism utility */
 .glass {
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--glass-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(51, 65, 85, 0.5);
+  border: 1px solid var(--glass-border);
 }
 
 .glass-light {
-  background: rgba(30, 41, 59, 0.4);
+  background: var(--glass-light-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(51, 65, 85, 0.3);
+  border: 1px solid var(--glass-border);
 }
 
 /* Gradient text */
@@ -171,20 +189,20 @@ body {
 }
 
 .btn-secondary {
-  background: rgba(51, 65, 85, 0.5);
-  color: #e2e8f0;
+  background: var(--glass-light-bg);
+  color: var(--foreground);
   font-weight: 500;
   padding: 10px 20px;
   border-radius: 10px;
   transition: all 0.3s ease;
-  border: 1px solid rgba(71, 85, 105, 0.5);
+  border: 1px solid var(--glass-border);
   cursor: pointer;
   font-size: 15px;
 }
 
 .btn-secondary:hover {
-  background: rgba(71, 85, 105, 0.5);
-  border-color: rgba(100, 116, 139, 0.5);
+  background: var(--glass-bg);
+  border-color: #10b981;
 }
 
 .btn-danger {
@@ -206,9 +224,9 @@ body {
 
 /* Input styles */
 .input-field {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(51, 65, 85, 0.6);
-  color: #e2e8f0;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
   padding: 12px 16px;
   border-radius: 10px;
   font-size: 15px;

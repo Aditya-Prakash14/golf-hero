@@ -43,7 +43,7 @@ export async function sendDrawResultEmail(
         ? `
           <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; color: #e2e8f0; padding: 32px; border-radius: 12px;">
             <h1 style="color: #fbbf24;">🎉 Congratulations, ${name}!</h1>
-            <p style="font-size: 18px;">You matched <strong>${matchCount}</strong> numbers and won <strong>£${prize.toFixed(2)}</strong>!</p>
+            <p style="font-size: 18px;">You matched <strong>${matchCount}</strong> numbers and won <strong>₹${prize.toLocaleString('en-IN')}</strong>!</p>
             <p>Please upload your proof of scores to claim your winnings.</p>
             <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" style="display: inline-block; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 16px; font-weight: 600;">Claim Winnings →</a>
           </div>

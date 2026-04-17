@@ -14,7 +14,7 @@ export default function CharityCard({ charity, isSelected, percentage = 10, onSe
       ${isSelected ? 'ring-2 ring-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.15)] transform -translate-y-1' : 'hover:border-slate-600'}
     `}>
       {charity.image_url ? (
-        <div className="h-40 w-full overflow-hidden bg-slate-800 relative">
+        <div className="h-40 w-full overflow-hidden bg-background/50 relative">
           <img 
             src={charity.image_url} 
             alt={charity.name} 
@@ -27,8 +27,8 @@ export default function CharityCard({ charity, isSelected, percentage = 10, onSe
           )}
         </div>
       ) : (
-        <div className="h-40 w-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center relative">
-          <Heart className="w-12 h-12 text-slate-700" />
+        <div className="h-40 w-full bg-gradient-to-br from-background to-glass flex items-center justify-center relative">
+          <Heart className="w-12 h-12 text-foreground/20" />
           {charity.is_featured && (
             <span className="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
               Featured
@@ -38,8 +38,8 @@ export default function CharityCard({ charity, isSelected, percentage = 10, onSe
       )}
       
       <div className="p-5 flex-1 flex flex-col mt-auto">
-        <h3 className="text-lg font-semibold text-white mb-2">{charity.name}</h3>
-        <p className="text-sm text-slate-400 mb-4 flex-1 line-clamp-3">{charity.description}</p>
+        <h3 className="text-lg font-semibold text-foreground mb-2">{charity.name}</h3>
+        <p className="text-sm text-slate-500 mb-4 flex-1 line-clamp-3">{charity.description}</p>
         
         {charity.website_url && (
           <a 

@@ -240,7 +240,7 @@ export default function SignupPage() {
                 className="sr-only" 
               />
               <span className="text-sm font-medium text-white">Monthly</span>
-              <span className="text-xs text-slate-400">£9.99 / month</span>
+              <span className="text-xs text-slate-400">₹999 / month</span>
             </label>
             
             <label className={`
@@ -262,7 +262,7 @@ export default function SignupPage() {
                 SAVE 16%
               </span>
               <span className="text-sm font-medium text-white">Yearly</span>
-              <span className="text-xs text-slate-400">£99.99 / year</span>
+              <span className="text-xs text-slate-400">₹9,999 / year</span>
             </label>
           </div>
         </div>

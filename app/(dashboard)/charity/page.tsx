@@ -92,10 +92,10 @@ export default function CharityPage() {
   return (
     <div className="max-w-6xl space-y-8 animate-fade-in pb-12">
       <div>
-         <h1 className="text-3xl font-bold text-white tracking-tight flex items-center">
+         <h1 className="text-3xl font-bold text-foreground tracking-tight flex items-center">
             Charity Support <Heart className="w-6 h-6 ml-3 text-rose-500 fill-rose-500/20" />
          </h1>
-         <p className="text-slate-400 mt-1">Choose who you want to support with your subscription.</p>
+         <p className="text-slate-500 mt-1">Choose who you want to support with your subscription.</p>
       </div>
 
       {message && (
@@ -112,8 +112,8 @@ export default function CharityPage() {
       <div className="glass p-6 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden gradient-border border-emerald-500/30">
          <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
          <div className="flex-1">
-            <h2 className="text-lg font-semibold text-white mb-2">Your Contribution</h2>
-            <p className="text-sm text-slate-300">
+            <h2 className="text-lg font-semibold text-foreground mb-2">Your Contribution</h2>
+            <p className="text-sm text-foreground/70">
                A portion of your monthly subscription goes directly to your selected charity. 
                The minimum is 10%, but you can give more if you wish.
             </p>
@@ -122,7 +122,7 @@ export default function CharityPage() {
          <div className="flex-1 max-w-sm w-full space-y-4">
             <div>
                <div className="flex justify-between items-end mb-2">
-                 <label className="text-sm font-medium text-slate-300" htmlFor="charity_percentage">
+                 <label className="text-sm font-medium text-slate-500" htmlFor="charity_percentage">
                     Contribution Percentage
                  </label>
                  <span className="text-xl font-bold text-emerald-400">{percentage}%</span>
@@ -151,7 +151,7 @@ export default function CharityPage() {
       </div>
 
       <div className="space-y-6">
-         <h2 className="text-xl font-semibold text-white">Available Charities</h2>
+         <h2 className="text-xl font-semibold text-foreground">Available Charities</h2>
          
          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {charities.map((charity) => (

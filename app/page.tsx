@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ChevronRight, Play, Heart, Trophy, Target } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
@@ -10,12 +11,13 @@ export default function Home() {
       <div className="absolute top-[40%] left-[60%] w-[30%] h-[30%] bg-amber-500/10 rounded-full blur-[100px] mix-blend-screen animate-pulse-soft" style={{ animationDelay: '1s' }}></div>
 
       {/* Header */}
-      <header className="flex justify-between items-center p-6 lg:px-12 relative z-10 glass-light border-b border-white/5">
-        <div className="font-bold text-2xl tracking-tight text-white flex items-center">
+      <header className="flex justify-between items-center p-6 lg:px-12 relative z-50 glass border-b border-white/5">
+        <div className="font-bold text-2xl tracking-tight text-foreground flex items-center">
            Golf <span className="gradient-text ml-1">Heroes</span>
         </div>
-        <div className="flex gap-4">
-          <Link href="/login" className="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <Link href="/login" className="px-5 py-2 text-sm font-medium text-slate-400 hover:text-foreground transition-colors">
             Sign In
           </Link>
           <Link href="/signup" className="btn-primary py-2 px-6 shadow-lg shadow-emerald-500/20">
@@ -54,7 +56,7 @@ export default function Home() {
           
           <div className="mt-16 flex items-center justify-center gap-8 text-slate-500 animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
             <div className="flex flex-col items-center">
-              <span className="text-3xl font-bold text-white mb-1">£99.99</span>
+              <span className="text-3xl font-bold text-white mb-1">₹9,999</span>
               <span className="text-sm">Yearly Plan (Save 16%)</span>
             </div>
             <div className="h-12 w-px bg-slate-800"></div>
@@ -71,11 +73,11 @@ export default function Home() {
         </section>
 
         {/* How it Works */}
-        <section id="how-it-works" className="py-24 bg-slate-900/50 border-t border-b border-white/5 relative">
+        <section id="how-it-works" className="py-24 bg-background/50 border-t border-b border-white/5 relative">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-white mb-4">How Golf Heroes Works</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">Three simple steps to combine your love for the game with the power of giving context.</p>
+              <h2 className="text-3xl font-bold text-foreground mb-4">How Golf Heroes Works</h2>
+              <p className="text-slate-500 max-w-2xl mx-auto">Three simple steps to combine your love for the game with the power of giving context.</p>
             </div>
             
             <div className="grid md:grid-cols-3 gap-8">
@@ -86,11 +88,11 @@ export default function Home() {
               ].map((step, i) => (
                 <div key={i} className="glass p-8 rounded-2xl relative overflow-hidden group card-hover">
                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-bl-full pointer-events-none transition-transform group-hover:scale-110"></div>
-                   <div className="mb-6 bg-slate-800/50 inline-flex p-4 rounded-xl border border-slate-700/50">
+                   <div className="mb-6 bg-slate-500/10 inline-flex p-4 rounded-xl border border-slate-700/50">
                      {step.icon}
                    </div>
-                   <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                   <p className="text-slate-400 leading-relaxed">{step.desc}</p>
+                   <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>
+                   <p className="text-slate-500 leading-relaxed">{step.desc}</p>
                 </div>
               ))}
             </div>
@@ -101,8 +103,8 @@ export default function Home() {
         <section className="py-24 max-w-6xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
             <div className="lg:w-1/2 space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-white">The Monthly Prize Pool</h2>
-              <p className="text-lg text-slate-400">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">The Monthly Prize Pool</h2>
+              <p className="text-lg text-slate-500">
                 Prizes are generated directly from the active subscriber pool. Every subscription increases the potential winnings for everyone.
               </p>
               
@@ -115,7 +117,7 @@ export default function Home() {
                   <li key={i} className="flex items-start">
                     <CheckCircle2 className="w-6 h-6 text-emerald-500 mr-3 shrink-0" />
                     <div>
-                      <h4 className="font-semibold text-white">{item.title}</h4>
+                      <h4 className="font-semibold text-foreground">{item.title}</h4>
                       <p className="text-slate-500 text-sm">{item.desc}</p>
                     </div>
                   </li>
@@ -127,18 +129,18 @@ export default function Home() {
                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-cyan-500 blur-3xl opacity-20 rounded-full animate-pulse-soft"></div>
                <div className="glass p-8 rounded-3xl border border-slate-700/50 relative">
                  <div className="flex justify-between items-center mb-6">
-                   <h3 className="text-xl font-semibold text-white">Draw Status</h3>
+                   <h3 className="text-xl font-semibold text-foreground">Draw Status</h3>
                    <span className="bg-amber-500/10 text-amber-500 px-3 py-1 rounded-full text-xs font-bold border border-amber-500/20 uppercase tracking-wide">Live</span>
                  </div>
                  
-                 <div className="bg-slate-900/80 rounded-xl p-6 border border-slate-700/50 flex flex-col items-center justify-center py-12 mb-6">
-                    <p className="text-sm font-medium text-slate-400 mb-2 uppercase tracking-widest">Current Jackpot Estimate</p>
-                    <p className="text-5xl font-extrabold gradient-text-amber drop-shadow-md">£5,250</p>
+                 <div className="bg-background/80 rounded-xl p-6 border border-slate-700/50 flex flex-col items-center justify-center py-12 mb-6 transition-colors">
+                    <p className="text-sm font-medium text-slate-500 mb-2 uppercase tracking-widest">Current Jackpot Estimate</p>
+                    <p className="text-5xl font-extrabold gradient-text-amber drop-shadow-md">₹5,25,000</p>
                  </div>
                  
                  <div className="text-center">
-                    <p className="text-sm text-slate-400 mb-4">Numbers draw on the 1st of every month.</p>
-                    <Link href="/signup" className="text-emerald-400 font-medium hover:text-emerald-300 inline-flex items-center">
+                    <p className="text-sm text-slate-500 mb-4">Numbers draw on the 1st of every month.</p>
+                    <Link href="/signup" className="text-emerald-500 font-medium hover:text-emerald-400 inline-flex items-center">
                       Join before next draw <ChevronRight className="w-4 h-4 ml-1" />
                     </Link>
                  </div>
@@ -149,12 +151,12 @@ export default function Home() {
         
         {/* CTA */}
         <section className="py-24 relative overflow-hidden">
-          <div className="absolute inset-0 bg-slate-900"></div>
+          <div className="absolute inset-0 bg-background transition-colors duration-300"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/10 opacity-50 blur-[100px] rounded-full"></div>
           
-          <div className="max-w-4xl mx-auto px-6 text-center relative z-10 glass-light border border-slate-700 py-16 rounded-3xl">
-            <h2 className="text-4xl font-bold text-white mb-6">Ready to become a Hero?</h2>
-            <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+          <div className="max-w-4xl mx-auto px-6 text-center relative z-10 glass border border-slate-700 py-16 rounded-3xl">
+            <h2 className="text-4xl font-bold text-foreground mb-6">Ready to become a Hero?</h2>
+            <p className="text-xl text-slate-500 mb-10 max-w-2xl mx-auto">
               Join thousands of golfers tracking their scores, winning prizes, and raising money for great causes.
             </p>
             <Link href="/signup" className="btn-primary text-lg px-10 py-5 inline-flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:scale-105 transition-all">
@@ -164,9 +166,9 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-slate-950 py-12 border-t border-slate-800 relative z-10">
+      <footer className="bg-background py-12 border-t border-slate-800 transition-colors duration-300 relative z-10">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="font-bold text-xl tracking-tight text-slate-300">
+          <div className="font-bold text-xl tracking-tight text-slate-400">
              Golf <span className="gradient-text">Heroes</span>
           </div>
           <p className="text-slate-500 text-sm">
