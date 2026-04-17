@@ -40,7 +40,7 @@ export default function Home() {
               src="/hero-bg.png" 
               alt="Premium Golf Course" 
               fill 
-              className="object-cover scale-105 animate-float opacity-80"
+              className="object-cover scale-105 opacity-80"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-10" />

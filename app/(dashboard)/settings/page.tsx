@@ -134,13 +134,13 @@ export default function SettingsPage() {
 
       <div className="glass p-6 rounded-3xl border border-amber-500/20 bg-amber-500/5 flex items-center justify-between shadow-lg shadow-amber-500/5">
          <div className="flex items-center">
-           <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center mr-4 border border-amber-500/20">
-             <Trophy className="w-6 h-6 text-amber-500" />
-           </div>
-           <div>
-             <h3 className="font-bold text-foreground">Membership Status</h3>
-             <p className="text-xs text-slate-500 font-medium capitalize mt-0.5">{profile?.subscription_status || 'Inactive'} • {profile?.subscription_plan || 'No Active Plan'}</p>
-           </div>
+            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center mr-4 border border-amber-500/20">
+              <Trophy className="w-6 h-6 text-amber-500" />
+            </div>
+            <div>
+              <h3 className="font-bold text-foreground">Membership Status</h3>
+              <p className="text-xs text-slate-500 font-medium capitalize mt-0.5">{profile?.subscription_status || 'Inactive'} • {profile?.subscription_plan || 'No Active Plan'}</p>
+            </div>
          </div>
          <a href="/api/stripe/portal" className="btn-secondary py-2.5 px-6 shadow-sm text-sm font-bold border-glass hover:border-amber-500/50 transition-all">
            Manage Billing
